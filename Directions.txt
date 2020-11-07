@@ -1,0 +1,3 @@
+How the program is ran:
+  As of Nov 7th, 2020:
+    - Most methods are executed from the Datalaya.java file, as there is no GUI avilable yet.
