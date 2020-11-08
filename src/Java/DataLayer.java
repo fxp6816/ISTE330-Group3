@@ -70,6 +70,10 @@ public class DataLayer{
          System.exit(0);
       }//end of catch
 
+
+
+      in.close();
+
       return (conn!=null);
    } // End of connect method
 
@@ -121,6 +125,7 @@ public class DataLayer{
    //insert new student into student table
    public void insertStudent(int ID, String fName, String lName, int programID, String phone, String email, String interests){
       try{
+         int rows = 0;
          stmt = conn.createStatement();
          String idString = Integer.toString(ID);
          String programIdString = Integer.toString(programID);
@@ -146,6 +151,10 @@ public class DataLayer{
 
          //get array of interests that are to be inserted
          String[] interestArray ;
+
+         //populate the array of interest witht he values from a text
+
+
          //iterate the insert
          for(int i = 0; i <interestArray.length; i++){
             sql = "INSERT INTO facultyInterest (ID, interest) VALUES("+"'"+ID+"'" +","+"'"+interestArray[i]+"'"+");";
@@ -178,7 +187,7 @@ public class DataLayer{
       return "";
    }//END - getStudentProgramInfo()
    //search student based in interest
-   public void searchStudent(){
+   public void searchStudent(String interest){
       try {
          //  Create a statement
             stmt = conn.createStatement();
@@ -189,7 +198,7 @@ public class DataLayer{
             ArrayList<String> studentID = new ArrayList<String>();
             //created list of faculty that match the search
             while (rs.next()) {
-               facultyID.add(rs.getString(0));
+               studentID.add(rs.getString(0));
            }
            //show all the info found including contact info
            for(int i=0;i< studentID.size(); i++){
@@ -210,9 +219,10 @@ public class DataLayer{
             }//end of try
       catch (SQLException sqle)
          {
-            System.out.println("\nSome RUN-TIME ERROR has occurred while getting number of rows from Table:" + tableName + ".");
+            System.out.println("\nSome RUN-TIME ERROR has occurred ");
             System.out.println("*****************************************************************");
-               System.out.println("ERROR MESSAGE --> "+sqle);                  sqle.printStackTrace();
+            System.out.println("ERROR MESSAGE --> "+sqle);                  
+            sqle.printStackTrace();
          }
 
    }//END - searchStudent()
@@ -225,6 +235,7 @@ public class DataLayer{
    //insert new favulty member into faculty table
    public void insertFaculty(int ID, String fName, String lName, int deptID, String phone, String email, String interests){
       try{
+         int rows = 0;
          stmt = conn.createStatement();
          String idString = Integer.toString(ID);
          String deptIdString = Integer.toString(deptID);
@@ -289,7 +300,7 @@ public class DataLayer{
             }//end of try
       catch (SQLException sqle)
          {
-            System.out.println("\nSome RUN-TIME ERROR has occurred while getting number of rows from Table:" + tableName + ".");
+            System.out.println("\nSome RUN-TIME ERROR has occurred");
             System.out.println("*****************************************************************");
                System.out.println("ERROR MESSAGE --> "+sqle);                  sqle.printStackTrace();
          }
@@ -344,14 +355,14 @@ public class DataLayer{
 
             String contactInfo = this.getFacultyContactInfo(Integer.toString(ID));
 
-            System.out.println(ID + " Faculty : " + fName +", "  + lName + ", " + deptID);
+            System.out.println(ID + " Faculty : " + fName +", "  + lName + ", " + deptID + contactInfo);
             
            }
 
             }//end of try
       catch (SQLException sqle)
          {
-            System.out.println("\nSome RUN-TIME ERROR has occurred while getting number of rows from Table:" + tableName + ".");
+            System.out.println("\nSome RUN-TIME ERROR has occurred");
             System.out.println("*****************************************************************");
                System.out.println("ERROR MESSAGE --> "+sqle);                  sqle.printStackTrace();
          }
@@ -371,6 +382,7 @@ public class DataLayer{
 
       System.out.println("-----DELETE started-----");
       try{
+         int rows = 0;
          stmt = conn.createStatement();
          String sql = "DELETE FROM facultyInterest WHERE facultyID = " + facultyID + ";";
          System.out.println("Command to be executed: " + sql);
@@ -392,7 +404,7 @@ public class DataLayer{
 
 
    //MAIN METHOD, FOR TESTING METHODS WRITTEN IN THE DATA LAYER CLASS....
-   public static void main(Stirng[] args){
+   public static void main(String[] args){
       DataLayer dl = new DataLayer();
       dl.connect();
    }
