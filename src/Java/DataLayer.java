@@ -32,18 +32,17 @@ public class DataLayer{
       String userName = "root";
       System.out.println("User: \"root\"");
       //Connecting to the local mySQL db
-	  //asking for database name
-	  //System.out.print("Enter the local MySQL Database name: ");
-	  //String dbname = in.nextLine();
+	   //asking for database name
+	   //System.out.print("Enter the local MySQL Database name: ");
+	   //String dbname = in.nextLine();
 
-	  //asking for the password
-	  System.out.print("Enter your MYSQL password (if it's 'student' just hit enter): ");
-	  String pass = in.nextLine();
-	  String password = "";
-	  if(pass.equals("")){
+	   //asking for the password
+	   System.out.print("Enter your MYSQL password (if it's 'student' just hit enter): ");
+	   String pass = in.nextLine();
+	   String password = "";
+	   if(pass.equals("")){
 	           password = "student";
-	        }
-	  else{
+	   } else{
 	      password = pass;
       }
 
@@ -64,8 +63,8 @@ public class DataLayer{
          System.exit(0);
       }
       catch(SQLException sqle){
-		 System.out.println("ERROR SQLExcepiton in connect()");
-		 System.out.println("ERROR MESSAGE -> "+sqle);
+		   System.out.println("ERROR SQLExcepiton in connect()");
+		   System.out.println("ERROR MESSAGE -> "+sqle);
          sqle.printStackTrace();
          System.exit(0);
       }//end of catch
@@ -111,7 +110,8 @@ public class DataLayer{
             {
                System.out.println("\nSome RUN-TIME ERROR has occurred while getting number of rows from Table:" + tableName + ".");
                System.out.println("*****************************************************************");
-                  System.out.println("ERROR MESSAGE --> "+sqle);                  sqle.printStackTrace();
+               System.out.println("ERROR MESSAGE --> "+sqle);                  
+               sqle.printStackTrace();
             }
             return (numRows);
    }//END - getNumRows()
@@ -181,7 +181,7 @@ public class DataLayer{
       return "";
    }//END - getStudentContactInfo()
    //Retrive data from progrma table
-   public String getStudentProgramInfo(Sting programID){
+   public String getStudentProgramInfo(String programID){
 
 
       return "";
@@ -302,7 +302,8 @@ public class DataLayer{
          {
             System.out.println("\nSome RUN-TIME ERROR has occurred");
             System.out.println("*****************************************************************");
-               System.out.println("ERROR MESSAGE --> "+sqle);                  sqle.printStackTrace();
+            System.out.println("ERROR MESSAGE --> "+sqle);                  
+            sqle.printStackTrace();
          }
       return "";
    }//END - searchFaculty()
