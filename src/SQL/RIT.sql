@@ -3,59 +3,61 @@ DROP DATABASE IF EXISTS RIT;
 
 CREATE DATABASE RIT;
 
-CREATE TABLE faculty VALUES(
+CREATE TABLE faculty (
     ID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     FName VARCHAR(25),
     LName VARCHAR(25),
-    deptID INT ,
-    
+    deptID INT
 );
 
-CREATE TABLE facultyContactInfo VALUES(
+CREATE TABLE Faculty_Contact_Info (
     facultyID INT NOT NULL ,
     phone VARCHAR(10),
     email VARCHAR(25)
 );
 
-CREATE TABLE facultyInterest VALUES(
+CREATE TABLE faculty_Interest (
     facultyID INT,
     interest VARCHAR(25)
 );
 
-CREATE TABLE student VALUES(
+CREATE TABLE student (
     ID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     FName VARCHAR(25),
     LName VARCHAR(25),
-    programID INT ,
-    
+    programID INT
+
 );
 
-CREATE TABLE studentInterests VALUES(
+CREATE TABLE student_Interests (
     studentID INT,
     interest VARCHAR(25)
 );
-CREATE TABLE studentContactInfo VALUES(
+
+CREATE TABLE student_Contact_Info (
     studentID INT,
     phone VARCHAR(10),
     email VARCHAR(25)
 );
 
-CREATE TABLE collage VALUES(
-    collageID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    colalgeName VARCHAR(25)
-    
+CREATE TABLE college (
+    collegeID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    collegeName VARCHAR(25)
+
 );
-CREATE TABLE department VALUES(
+
+CREATE TABLE department (
     deptID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     deptName VARCHAR(25)
-    
+
 );
-CREATE TABLE deptPhones VALUES(
+
+CREATE TABLE deptPhones (
     deptID INT,
     phone VARCHAR(10)
 );
 
-CREATE TABLE program VALUES(
+CREATE TABLE program (
     programID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     programName VARCHAR(25)
     
