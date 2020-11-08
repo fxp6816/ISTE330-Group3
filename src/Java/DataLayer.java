@@ -5,7 +5,9 @@
 
 /**
  * This version is lacking due to missing items , like the SQL procedures as well as a full implementation of the database so testing
- * could not be applied to the datalayer, all code is at a theoretical point of implementation.*/
+ * could not be applied to the datalayer, all code is at a theoretical point of implementation.
+ * teStiNG
+ * */
 
 import java.sql.*;
 import java.util.ArrayList;
