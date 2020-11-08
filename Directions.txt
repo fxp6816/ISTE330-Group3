@@ -1,3 +1,8 @@
+Short Comings:
+- Our team has had trouble having all its members put in the effort. This has led to several problems like rushed work ending in future refactoring time inevitable.
+- We need to improve alot on time management as well as being on the same page to be able to work in parrallel more effectivly.
+- Code is Not ready for demo.
+
 How the program is ran:
   As of Nov 7th, 2020:
     - Clone the Project from https://github.com/fxp6816/ISTE330-Group3.git
