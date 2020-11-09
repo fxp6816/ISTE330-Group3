@@ -65,4 +65,4 @@ CREATE TABLE student_Contact_Info (
     FOREIGN KEY (studentID) REFERENCES student(ID)
 );
 
---insert some infor to test the program
+--insert some info to test the program
