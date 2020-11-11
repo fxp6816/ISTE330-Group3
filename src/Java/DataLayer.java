@@ -1,7 +1,8 @@
-//group 3 - DataLayer
-//@Author Francisco Paliouras Delgado
-//@Version Nov 7th, 2020
-
+/**
+ *  DataLayer.java:
+ *  @Author Group-03 [Francisco Paliouras(fxp6816),]
+ *  @version Nov 11th, 2020
+ */
 
 /**
  * This version is lacking due to missing items , like the SQL procedures as well as a full implementation of the database so testing
