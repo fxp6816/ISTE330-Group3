@@ -69,6 +69,7 @@ CREATE TABLE faculty_contact_info (
   CONSTRAINT faculty_contact_info_ibfk_1
     FOREIGN KEY (facultyID)
     REFERENCES faculty(ID)
+    ON DELETE CASCADE
 );
 
 -- -----------------------------------------------------
@@ -112,6 +113,7 @@ CREATE TABLE student_contact_info (
   CONSTRAINT student_contact_info_ibfk_1
     FOREIGN KEY (`studentID`)
     REFERENCES student(ID)
+    ON DELETE CASCADE
 );
 
 show tables;
