@@ -3,6 +3,7 @@ Class Project for class ISTE 330: Database Connectivity @ Rochester Institute of
 
 ## Team Members
   Francisco Paliouras, fxp6816
+  Dustin Rochette, dr7210
   
 ## How the program is ran:
 As of Nov 7th, 2020:
