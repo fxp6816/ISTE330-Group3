@@ -1,4 +1,3 @@
-
 /**
  *  Student.java:
  *  @Author Group-03 [Francisco Paliouras(fxp6816),]
@@ -26,10 +25,6 @@ public class Student extends Person {
 
     public String toString(){
         String out = "";
-
-
-
-
 
         return out;
     }

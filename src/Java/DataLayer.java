@@ -9,8 +9,12 @@
  * could not be applied to the datalayer, all code is at a theoretical point of implementation.
  * teStiNG
  * */
-
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -183,6 +187,9 @@ public class DataLayer{
 
       return "";
    }//END - getStudentContactInfo()
+
+   
+
    //Retrive data from progrma table
    public String getStudentProgramInfo(String programID){
 
@@ -284,6 +291,8 @@ public class DataLayer{
          
       }//catch
    }//END - insertFaculty()
+
+
    //get Faculty contat info from table
    public String getFacultyContactInfo(String facultyID){
       try {
@@ -521,7 +530,27 @@ public void insertFaculty(String fName, String lName, int deptID, String phone, 
    }catch(SQLException sqle){
          
    }
-}
+}// END - intsertFaculty()
+
+
+//this method will help encrypt the password
+public String encrypt(String secret)
+{
+
+    String sha1 = "";
+    String value = new String(secret);
+    	try {
+				MessageDigest digest = MessageDigest.getInstance("SHA-1");
+		        digest.reset();
+		        digest.update(value.getBytes("utf8"));
+		        sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+	   } catch (Exception e){
+			e.printStackTrace();
+		  }// end of catch
+
+
+	return sha1;
+}//end of function
 
 
 

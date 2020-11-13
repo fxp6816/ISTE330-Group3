@@ -5,6 +5,11 @@
  *  @version Nov 13th, 2020
  */
 
+
+
+ //update faculty obj to reflect database table
+
+ 
 public class Faculty extends Person {
         
     private int deptId;
