@@ -37,6 +37,7 @@ CREATE TABLE interests (
   `interestDesc` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`ID`));
 
+
 -- -----------------------------------------------------
 -- Table faculty`
 -- -----------------------------------------------------

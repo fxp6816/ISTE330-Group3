@@ -126,7 +126,7 @@ public class DataLayer{
 
 
    //insert new student into student table
-   public void insertStudent(int ID, String fName, String lName, int programID, String phone, String email, String interests){
+   public void insertStudent_OLD(int ID, String fName, String lName, int programID, String phone, String email, String interests){
       try{
          int rows = 0;
          stmt = conn.createStatement();
@@ -190,7 +190,7 @@ public class DataLayer{
       return "";
    }//END - getStudentProgramInfo()
    //search student based in interest
-   public void searchStudent(String interest){
+   public void searchStudent_OLD(String interest){
 
       //based on interest => list of IDS => for each
                               //             = >[id, fname, deptid,] programinfo[] studentContatct info
@@ -240,81 +240,81 @@ public class DataLayer{
 
 
 
-   // //insert new favulty member into faculty table
-   // public void insertFaculty(int ID, String fName, String lName, int deptID, String phone, String email, String interests){
-   //    try{
-   //       int rows = 0;
-   //       stmt = conn.createStatement();
-   //       String idString = Integer.toString(ID);
-   //       String deptIdString = Integer.toString(deptID);
-   //       String sql = "INSERT INTO faculty (ID, Fname, Lname, deptId) VALUES("+"'"+idString+"'" +","+
-   //                                                                                                       "'"+fName+"'" +","
-   //                                                                                                       +"'"+lName+"'" +","
-   //                                                                                                       +"'"+deptIdString+"'" +","
-   //                                                                                                       +");";
+   //insert new favulty member into faculty table
+   public void insertFaculty_OLD(int ID, String fName, String lName, int deptID, String phone, String email, String interests){
+      try{
+         int rows = 0;
+         stmt = conn.createStatement();
+         String idString = Integer.toString(ID);
+         String deptIdString = Integer.toString(deptID);
+         String sql = "INSERT INTO faculty (ID, Fname, Lname, deptId) VALUES("+"'"+idString+"'" +","+
+                                                                                                         "'"+fName+"'" +","
+                                                                                                         +"'"+lName+"'" +","
+                                                                                                         +"'"+deptIdString+"'" +","
+                                                                                                         +");";
 
-   //       System.out.println("Statement to be executed:\n->" + sql);
-   //       rows = stmt.executeUpdate(sql);
-   //       System.out.println("-----INSERT finished-----");                                                                                     
+         System.out.println("Statement to be executed:\n->" + sql);
+         rows = stmt.executeUpdate(sql);
+         System.out.println("-----INSERT finished-----");                                                                                     
 
-   //       //insert contact info
-   //       sql = "INSERT INTO facultyContactInfo (ID, phone, email) VALUES("+"'"+ID+"'" +","+"'"+phone+"'"+","+"'"+email+"'"+");";
-   //       System.out.println("Statement to be executed:\n->" + sql);
-   //       rows = stmt.executeUpdate(sql);
-   //       System.out.println("-----INSERT finished-----");    
-   //       //insert interests
-   //          //get array of interests that are to be inserted
-   //          String[] interestArray ;
-   //          //iterate the insert
-   //          for(int i = 0; i <interestArray.length; i++){
-   //             sql = "INSERT INTO facultyInterest (ID, interest) VALUES("+"'"+ID+"'" +","+"'"+interestArray[i]+"'"+");";
-   //             System.out.println("Statement to be executed:\n->" + sql);
-   //             rows = stmt.executeUpdate(sql);
-   //          }
+         //insert contact info
+         sql = "INSERT INTO facultyContactInfo (ID, phone, email) VALUES("+"'"+ID+"'" +","+"'"+phone+"'"+","+"'"+email+"'"+");";
+         System.out.println("Statement to be executed:\n->" + sql);
+         rows = stmt.executeUpdate(sql);
+         System.out.println("-----INSERT finished-----");    
+         //insert interests
+            //get array of interests that are to be inserted
+            String[] interestArray ;
+            //iterate the insert
+            for(int i = 0; i <interestArray.length; i++){
+               sql = "INSERT INTO facultyInterest (ID, interest) VALUES("+"'"+ID+"'" +","+"'"+interestArray[i]+"'"+");";
+               System.out.println("Statement to be executed:\n->" + sql);
+               rows = stmt.executeUpdate(sql);
+            }
 
          
 
-   //       //Show prompt of the number of rows inserted
+         //Show prompt of the number of rows inserted
 
 
-   //    }//try
-   //    catch(SQLException sqle){
-   //       System.out.println("Insert Failed!");
-   //       sqle.printStackTrace();
+      }//try
+      catch(SQLException sqle){
+         System.out.println("Insert Failed!");
+         sqle.printStackTrace();
          
-   //    }//catch
-   // }//END - insertFaculty()
-   // //get Faculty contat info from table
-   // public String getFacultyContactInfo(String facultyID){
-   //    try {
-   //       //  Create a statement
-   //          stmt = conn.createStatement();
-   //          sql = "SELECT facultyID, phone, email FROM facultyContactInfo WHERE facultyID == "+ facultyID +";" ;
-   //          rs = stmt.executeQuery(sql);
-   //          rs.next();
+      }//catch
+   }//END - insertFaculty()
+   //get Faculty contat info from table
+   public String getFacultyContactInfo(String facultyID){
+      try {
+         //  Create a statement
+            stmt = conn.createStatement();
+            sql = "SELECT facultyID, phone, email FROM facultyContactInfo WHERE facultyID == "+ facultyID +";" ;
+            rs = stmt.executeQuery(sql);
+            rs.next();
             
 
-   //          //created list of faculty that match the search
+            //created list of faculty that match the search
             
-   //          int id = rs.getInt(1);
-   //          String phone = rs.getString(2);
-   //          String email = rs.getString(3);
+            int id = rs.getInt(1);
+            String phone = rs.getString(2);
+            String email = rs.getString(3);
 
-   //          //display data for ea
+            //display data for ea
 
-   //          String out = Integer.toString(id) + "," + phone + "," + email;
-   //          return out;
+            String out = Integer.toString(id) + "," + phone + "," + email;
+            return out;
 
-   //          }//end of try
-   //    catch (SQLException sqle)
-   //       {
-   //          System.out.println("\nSome RUN-TIME ERROR has occurred");
-   //          System.out.println("*****************************************************************");
-   //          System.out.println("ERROR MESSAGE --> "+sqle);                  
-   //          sqle.printStackTrace();
-   //       }
-   //    return "";
-   // }//END - searchFaculty()
+            }//end of try
+      catch (SQLException sqle)
+         {
+            System.out.println("\nSome RUN-TIME ERROR has occurred");
+            System.out.println("*****************************************************************");
+            System.out.println("ERROR MESSAGE --> "+sqle);                  
+            sqle.printStackTrace();
+         }
+      return "";
+   }//END - searchFaculty()
    //get Faculty Department Information from table
    public String getFacultyDepInfo(String deptID){
       try{
