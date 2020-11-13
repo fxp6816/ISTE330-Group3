@@ -1,3 +1,10 @@
+
+/**
+ *  Student.java:
+ *  @Author Group-03 [Francisco Paliouras(fxp6816),]
+ *  @version Nov 13th, 2020
+ */
+
 public class Student extends Person {
     
     private int programID;
