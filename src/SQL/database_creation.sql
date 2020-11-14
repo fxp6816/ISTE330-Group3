@@ -8,13 +8,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema rit
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema rit
+-- Drop rit
 -- -----------------------------------------------------
 drop database rit;
+-- -----------------------------------------------------
+-- Schema rit
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `rit` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `rit` ;
 
@@ -110,7 +109,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `rit`.`student`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rit`.`student` (
-  `ID` INT NOT NULL AUTO_INCREMENT,
+  `ID` INT NOT NULL,
   `FName` VARCHAR(25) NULL DEFAULT NULL,
   `LName` VARCHAR(25) NULL DEFAULT NULL,
   `programID` INT NULL DEFAULT NULL,
