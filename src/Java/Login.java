@@ -12,8 +12,10 @@ public class Login extends JFrame {
    
     public static Font myFontForOutput = new Font("Courier", Font.PLAIN, 16);
     
+    private String rootPassword = "student";
+    
     JTextField userName;
-    JTextField password ;
+    JTextField password;
 
    public Login(){
       //creating UI and Linking it to the DATA Layer
@@ -64,8 +66,12 @@ public class Login extends JFrame {
         public void actionPerformed(ActionEvent event) {
         
             //get the User and the password text
+            if(password.getText().equals(rootPassword)){
+               PresentationLayer pl = new PresentationLayer(userName.getText() , password.getText());
+            }else{
+               JOptionPane.showMessageDialog(new JFrame(),"Wrong Username or Password.");
+            }
             
-            PresentationLayer pl = new PresentationLayer(userName.getText() , password.getText());
             
         }
    }
@@ -80,7 +86,7 @@ public class Login extends JFrame {
 
    
    public static void main(String[] args){
-   
+      
       Login login = new Login();
    }
 

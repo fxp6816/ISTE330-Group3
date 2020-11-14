@@ -36,22 +36,9 @@ public class DataLayer{
    public boolean connect(){
       conn = null;
       Scanner in = new Scanner(System.in);
+      
       String userName = "root";
-      System.out.println("User: \"root\"");
-      //Connecting to the local mySQL db
-	   //asking for database name
-	   //System.out.print("Enter the local MySQL Database name: ");
-	   //String dbname = in.nextLine();
-
-	   //asking for the password
-	   System.out.print("Enter your MYSQL password (if it's 'student' just hit enter): ");
-	   String pass = in.nextLine();
-	   String password = "";
-	   if(pass.equals("")){
-	           password = "student";
-	   } else{
-	      password = pass;
-      }
+      String password = "student";
 
       //reaname the dbs name to the correct db
       String url = "jdbc:mysql://localhost/rit";
@@ -285,13 +272,18 @@ public class DataLayer{
       }
    }// END - intsertFaculty()
 
+
+
    //update faculty interest
    public void updateFacultyInterest(){
       //look up for the interest and populate the window
-
+      
       //rewrite the interest into the database
 
    }//END - updateInterest()
+
+
+
 
    //delete faculty interest
    public void deleteFacultyInterest(String facultyID){
@@ -316,6 +308,8 @@ public class DataLayer{
       }
    }//END - delteFacultyInterest()
 
+
+
 //this method will help encrypt the password
    public String encrypt(String secret){
 
@@ -333,6 +327,8 @@ public class DataLayer{
 
       return sha1;
    }//end of function
+
+
 
 
    //MAIN METHOD, FOR TESTING METHODS WRITTEN IN THE DATA LAYER CLASS....
