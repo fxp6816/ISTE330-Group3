@@ -1,6 +1,21 @@
+-- MySQL Workbench Forward Engineering
 
-if exists drop database rit;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema rit
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema rit
+-- -----------------------------------------------------
+drop database rit;
+CREATE SCHEMA IF NOT EXISTS `rit` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `rit` ;
 
 -- -----------------------------------------------------
@@ -22,12 +37,8 @@ CREATE TABLE IF NOT EXISTS `rit`.`faculty` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `FName` VARCHAR(25) NULL DEFAULT NULL,
   `LName` VARCHAR(25) NULL DEFAULT NULL,
-  `departmentID` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  INDEX `faculty_ibfk_1` (`departmentID` ASC) VISIBLE,
-  CONSTRAINT `faculty_ibfk_1`
-    FOREIGN KEY (`departmentID`)
-    REFERENCES `rit`.`department` (`deptID`))
+  `abstracts` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -38,13 +49,32 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rit`.`faculty_contact_info` (
   `facultyID` INT NOT NULL,
-  `phone` VARCHAR(10) NULL DEFAULT NULL,
-  `email` VARCHAR(25) NULL DEFAULT NULL,
-  `Office Hours` VARCHAR(45) NULL,
-  `Office Number` VARCHAR(45) NULL,
-  `faculty_contact_infocol` VARCHAR(45) NULL,
+  `phone` VARCHAR(10) NOT NULL,
+  `email` VARCHAR(25) NOT NULL,
+  `Office Hours` VARCHAR(255) NOT NULL,
+  `Office Number` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`facultyID`),
   INDEX `faculty_contact_info_ibfk_1` (`facultyID` ASC) VISIBLE,
   CONSTRAINT `faculty_contact_info_ibfk_1`
+    FOREIGN KEY (`facultyID`)
+    REFERENCES `rit`.`faculty` (`ID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `rit`.`faculty_department`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rit`.`faculty_department` (
+  `facultyID` INT NOT NULL,
+  `departmentID` INT NOT NULL,
+  PRIMARY KEY (`facultyID`),
+  INDEX `faculty_department_faculty_FK_idx` (`departmentID` ASC) VISIBLE,
+  CONSTRAINT `faculty_department_department_FK`
+    FOREIGN KEY (`departmentID`)
+    REFERENCES `rit`.`department` (`deptID`),
+  CONSTRAINT `faculty_department_faculty_FK`
     FOREIGN KEY (`facultyID`)
     REFERENCES `rit`.`faculty` (`ID`))
 ENGINE = InnoDB
@@ -56,9 +86,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `rit`.`interests`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rit`.`interests` (
-  `ID` INT NOT NULL AUTO_INCREMENT,
+  `interestID` INT NOT NULL AUTO_INCREMENT,
   `interestDesc` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`))
+  PRIMARY KEY (`interestID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -69,7 +99,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rit`.`program` (
   `programID` INT NOT NULL AUTO_INCREMENT,
-  `programName` VARCHAR(255) NULL DEFAULT NULL,
+  `programName` VARCHAR(1000) NULL DEFAULT NULL,
   PRIMARY KEY (`programID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -84,16 +114,7 @@ CREATE TABLE IF NOT EXISTS `rit`.`student` (
   `FName` VARCHAR(25) NULL DEFAULT NULL,
   `LName` VARCHAR(25) NULL DEFAULT NULL,
   `programID` INT NULL DEFAULT NULL,
-  `interestID` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  INDEX `student_ibfk_1` (`programID` ASC) VISIBLE,
-  INDEX `fk_studentInterestID` (`interestID` ASC) VISIBLE,
-  CONSTRAINT `fk_studentInterestID`
-    FOREIGN KEY (`interestID`)
-    REFERENCES `rit`.`interests` (`ID`),
-  CONSTRAINT `student_ibfk_1`
-    FOREIGN KEY (`programID`)
-    REFERENCES `rit`.`program` (`programID`))
+  PRIMARY KEY (`ID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -114,3 +135,48 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
+-- -----------------------------------------------------
+-- Table `rit`.`student_interest`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rit`.`student_interest` (
+  `studentID` INT NOT NULL,
+  `interestID` INT NOT NULL,
+  PRIMARY KEY (`studentID`),
+  INDEX `student_interest_interest_FK_idx` (`interestID` ASC) VISIBLE,
+  CONSTRAINT `student_interest_interest_FK`
+    FOREIGN KEY (`interestID`)
+    REFERENCES `rit`.`interests` (`interestID`),
+  CONSTRAINT `student_interest_student_FK`
+    FOREIGN KEY (`studentID`)
+    REFERENCES `rit`.`student` (`ID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `rit`.`student_program`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rit`.`student_program` (
+  `studentID` INT NOT NULL,
+  `programID` INT NOT NULL,
+  PRIMARY KEY (`studentID`),
+  INDEX `student_program_program_FK_idx` (`programID` ASC) VISIBLE,
+  CONSTRAINT `student_program_program_FK`
+    FOREIGN KEY (`programID`)
+    REFERENCES `rit`.`program` (`programID`),
+  CONSTRAINT `student_program_student_FK`
+    FOREIGN KEY (`studentID`)
+    REFERENCES `rit`.`student` (`ID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+show tables ;
