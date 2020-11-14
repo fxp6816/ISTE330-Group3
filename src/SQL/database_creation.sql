@@ -49,7 +49,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `rit`.`faculty_contact_info` (
   `facultyID` INT NOT NULL,
   `phone` VARCHAR(10) NOT NULL,
-  `email` VARCHAR(25) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
   `Office Hours` VARCHAR(255) NOT NULL,
   `Office Number` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`facultyID`),
@@ -125,7 +125,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `rit`.`student_contact_info` (
   `studentID` INT NULL DEFAULT NULL,
   `phone` VARCHAR(10) NULL DEFAULT NULL,
-  `email` VARCHAR(25) NULL DEFAULT NULL,
+  `email` VARCHAR(100) NULL DEFAULT NULL,
   INDEX `student_contact_info_ibfk_1` (`studentID` ASC) VISIBLE,
   CONSTRAINT `student_contact_info_ibfk_1`
     FOREIGN KEY (`studentID`)
