@@ -8,11 +8,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class PresentationLayer extends JFrame{
 
    DataLayer db = new DataLayer();
    public JPanel ui;
+   JButton runBtn = new JButton("Execute");
  
    public static Font myFont = new Font("Courier", Font.PLAIN, 16);
  
@@ -87,7 +89,7 @@ public class PresentationLayer extends JFrame{
      
       this.add(ui,BorderLayout.CENTER);
      
-      JButton runBtn = new JButton("Execute");
+      
       this.add(runBtn, BorderLayout.SOUTH);
      
      
@@ -157,6 +159,19 @@ public class PresentationLayer extends JFrame{
                ui.revalidate();
                ui.repaint();
                
+               runBtn.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                     ArrayList<Student> studentsFound = db.searchStudent(studentName_Search.getText());
+                     String out = "";
+                     
+                     for(Student st: studentsFound){
+                        out += st.toString();
+                     }//ForLoop
+                     
+                     JOptionPane.showMessageDialog(new JFrame("Students Found"),out);
+                  }
+               });
+               
                break;
             case "Delete Student":
                System.out.println("Search Student");
@@ -219,6 +234,7 @@ public class PresentationLayer extends JFrame{
                
                ui.revalidate();
                ui.repaint();
+               
                
                break;
             case "Update Student":
