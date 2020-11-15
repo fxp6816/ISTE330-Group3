@@ -8,11 +8,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class PresentationLayer extends JFrame{
 
    DataLayer db = new DataLayer();
    public JPanel ui;
+   JButton runBtn = new JButton("Execute");
  
    public static Font myFont = new Font("Courier", Font.PLAIN, 16);
  
@@ -87,7 +89,7 @@ public class PresentationLayer extends JFrame{
      
       this.add(ui,BorderLayout.CENTER);
      
-      JButton runBtn = new JButton("Execute");
+      
       this.add(runBtn, BorderLayout.SOUTH);
      
      
@@ -108,6 +110,10 @@ public class PresentationLayer extends JFrame{
          
             case "Insert Student":
                System.out.println("Insert Student");
+               
+               JTextField studentId = new JTextField();
+               JLabel studentIdLbl = new JLabel("Student Id:");
+               
                JTextField fname = new JTextField();
                JLabel fnameLbl = new JLabel("First Name:");
                
@@ -127,7 +133,8 @@ public class PresentationLayer extends JFrame{
                JLabel interestsLbl = new JLabel("Interest (seperate by ','):");
                
             
-               
+               ui.add(studentIdLbl);
+               ui.add(studentId);
                ui.add(fnameLbl);
                ui.add(fname);
                ui.add(lnameLbl);
@@ -144,6 +151,30 @@ public class PresentationLayer extends JFrame{
                ui.revalidate();
                ui.repaint();
                
+               runBtn.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                  
+                     int _stuId = Integer.parseInt(studentId.getText());
+                     String _fName = fname.getText();
+                     String _lName = lname.getText();
+                     int _progId = Integer.parseInt(programTF.getText());
+                     String _phn = phone.getText();
+                     String _email = email.getText();
+                     String _interest = interests.getText();
+                     
+                     boolean studentInserted = db.insertStudent(_stuId,_fName,_lName,_progId,_phn,_email,_interest);
+                     String out = "";
+                     
+                     if(studentInserted){
+                     
+                     }else if(!studentInserted){
+                     
+                     }
+                     
+                     JOptionPane.showMessageDialog(new JFrame("Students Found"),out);
+                  }
+               });
+               
                break;
             case "Search Student":
                System.out.println("Search Student");
@@ -156,6 +187,19 @@ public class PresentationLayer extends JFrame{
                
                ui.revalidate();
                ui.repaint();
+               
+               runBtn.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                     ArrayList<Student> studentsFound = db.searchStudent(studentName_Search.getText());
+                     String out = "";
+                     
+                     for(Student st: studentsFound){
+                        out += st.toString();
+                     }//ForLoop
+                     
+                     JOptionPane.showMessageDialog(new JFrame("Students Found"),out);
+                  }
+               });
                
                break;
             case "Delete Student":
@@ -173,6 +217,10 @@ public class PresentationLayer extends JFrame{
                break;
             case "Insert Faculty":
                System.out.println("Insert Faculty");
+               
+               JTextField facultyId = new JTextField();
+               JLabel facultyIdLbl = new JLabel("Faculty Id:");
+               
                JTextField fname_faculty = new JTextField();
                JLabel fnameLbl_faculty = new JLabel("First Name:");
                
@@ -191,6 +239,9 @@ public class PresentationLayer extends JFrame{
                JTextArea abstractTA_faculty = new JTextArea(5, 100);
                JLabel abstractLbl_faculty = new JLabel("Abastract:");
                abstractTA_faculty.setLineWrap(true);
+               
+               ui.add(facultyIdLbl);
+               ui.add(facultyId);
                ui.add(fnameLbl_faculty);
                ui.add(fname_faculty);
                ui.add(lnameLbl_faculty);
@@ -219,6 +270,7 @@ public class PresentationLayer extends JFrame{
                
                ui.revalidate();
                ui.repaint();
+               
                
                break;
             case "Update Student":

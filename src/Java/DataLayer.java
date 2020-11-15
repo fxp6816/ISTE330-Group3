@@ -192,20 +192,36 @@ public class DataLayer{
    }// END - searchStudent()
 
 
-   public boolean insertStudent(String fName, String lName, int programID, String phone, String email, String interests){
+   public boolean insertStudent(int studentId, String fName, String lName, int programID, String phone, String email, String interests){
          try{
 
-            String query = "{CALL searchStudent(?,?,?,?,?,?)}";
+            String query = "{CALL insertStudent(?,?,?,?,?,?)}";
             CallableStatement stmt = conn.prepareCall(query);
             stmt.setString(1, fName);
             stmt.setString(2, lName);
             stmt.setInt(3, programID);
             stmt.setString(4, email);
             stmt.setString(5, phone);
-            //stmt.setString()
+            
 
             ResultSet rs = stmt.executeQuery();
-
+            
+            //split the interest String add to the interest table
+            String[] interestsArray =  interests.split(",");
+            
+            for(int i =0 ; i < interestsArray.length: i++){
+            
+                String interestIDQuery = "SELECT interestID FROM interests WHERE interestDesc LIKE" + interestsArray[i];
+                rs = stmt.executeQuery(interestIDQuery);
+                rs.next();
+                
+                int interestId = rs.getInt(1);
+                
+                String query2 = "INSERT INTO student_interest VALUES(studentID, interestID,) ("+ studentId + "," + interestId +")";
+                rs = stmt.executeQuery(query2);
+                rs.next();
+            }
+            
             return true;
 
          }catch(SQLException sqle){
