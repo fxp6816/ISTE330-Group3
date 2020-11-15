@@ -158,13 +158,13 @@ public class DataLayer{
 
 
 
-   public ArrayList<Person> searchStudent(int interest){
+   public ArrayList<Student> searchStudent(int interest){
       
-      ArrayList<Person> foundStudents = new ArrayList<Person>();
+      ArrayList<Student> foundStudents = new ArrayList<Student>();
       String query = "{CALL search_student(?)}";
             try{
                CallableStatement stmt = conn.prepareCall(query);
-               stmt.setString(1, interest);
+               stmt.setInt(1, interest);
 
                ResultSet rs = stmt.executeQuery();
 
@@ -210,7 +210,7 @@ public class DataLayer{
             //split the interest String add to the interest table
             String[] interestsArray =  interests.split(",");
             
-            for(int i =0 ; i < interestsArray.length: i++){
+            for(int i =0 ; i < interestsArray.length; i++){
             
                 String interestIDQuery = "SELECT interestID FROM interests WHERE interestDesc LIKE" + interestsArray[i];
                 rs = stmt.executeQuery(interestIDQuery);
@@ -293,7 +293,7 @@ public class DataLayer{
 
 
    //update faculty interest
-   public void updateFaculty(int ID, String fName, String lName, String fAbastract, int deptID, String phone, String email){
+   public boolean updateFaculty(int ID, String fName, String lName, String fAbastract, int deptID, String phone, String email){
       try{
          String query = "{CALL update_faculty(?,?,?,?,?,?,?)}";
          CallableStatement stmt = conn.prepareCall(query);
@@ -318,7 +318,7 @@ public class DataLayer{
    }//END - updateFaculty()
 
 
- public void updateStudent(int ID, String fName, String lName, int deptID, String phone, String email, String interests){
+ public boolean updateStudent(int ID, String fName, String lName, int deptID, String phone, String email, String interests){
       try{
          String query = "{CALL update_student(?,?,?,?,?,?,?)}";
          CallableStatement stmt = conn.prepareCall(query);
@@ -344,7 +344,7 @@ public class DataLayer{
    }//END - updateFaculty()
 
    //delete faculty interest
-   public void deleteFaculty(int facultyID){
+   public boolean deleteFaculty(int facultyID){
       try{
          String query = "{CALL delete_faculty(?)}";
          CallableStatement stmt = conn.prepareCall(query);
@@ -364,7 +364,7 @@ public class DataLayer{
    }//END - delteFacultyInterest()
    
       //delete faculty interest
-   public void deleteStudent(int studentId){
+   public boolean deleteStudent(int studentId){
       try{
          String query = "{CALL delete_student(?)}";
          CallableStatement stmt = conn.prepareCall(query);

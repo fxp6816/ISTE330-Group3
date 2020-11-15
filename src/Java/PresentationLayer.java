@@ -163,26 +163,26 @@ public class PresentationLayer extends JFrame{
                      String _interest = interests.getText();
                      
                      boolean studentInserted = db.insertStudent(_stuId,_fName,_lName,_progId,_phn,_email,_interest);
-                     String out = "";
+                     
                      
                      if(studentInserted){
-                     
+                        JOptionPane.showMessageDialog(new JFrame("Students Found"),"Insert Successfull");
                      }else if(!studentInserted){
-                     
+                        JOptionPane.showMessageDialog(new JFrame("Students Found"),"Insert Failed");
                      }
                      
-                     JOptionPane.showMessageDialog(new JFrame("Students Found"),out);
+                     
                   }
                });
                
                break;
             case "Search Student":
                System.out.println("Search Student");
-               JTextField studentName_Search = new JTextField();
-               JLabel studentLbl_Search = new JLabel("Student Name:");
+               JTextField interestId_Search = new JTextField();
+               JLabel studentLbl_Search = new JLabel("Student Interst Id:");
                
                ui.add(studentLbl_Search);
-               ui.add(studentName_Search);
+               ui.add(interestId_Search);
                
                
                ui.revalidate();
@@ -190,7 +190,7 @@ public class PresentationLayer extends JFrame{
                
                runBtn.addActionListener(new ActionListener(){
                   public void actionPerformed(ActionEvent e){
-                     ArrayList<Student> studentsFound = db.searchStudent(studentName_Search.getText());
+                     ArrayList<Student> studentsFound = db.searchStudent(Integer.parseInt(interestId_Search.getText()));
                      String out = "";
                      
                      for(Student st: studentsFound){
@@ -205,7 +205,7 @@ public class PresentationLayer extends JFrame{
             case "Delete Student":
                System.out.println("Search Student");
                JTextField studentName_Delete = new JTextField();
-               JLabel studentLbl_Delete = new JLabel("Student Name:");
+               JLabel studentLbl_Delete = new JLabel("Student Id:");
                
                ui.add(studentLbl_Delete);
                ui.add(studentName_Delete);
@@ -213,6 +213,16 @@ public class PresentationLayer extends JFrame{
                
                ui.revalidate();
                ui.repaint();
+               
+               
+               runBtn.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                     db.deleteStudent(Integer.parseInt(studentName_Delete.getText()));
+                     
+                     
+                     JOptionPane.showMessageDialog(new JFrame("Students Found"),"Delete Succesfull");
+                  }
+               });
                
                break;
             case "Insert Faculty":
@@ -258,11 +268,36 @@ public class PresentationLayer extends JFrame{
                ui.revalidate();
                ui.repaint();
                
+               
+               runBtn.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                  
+                     String _facultyId = facultyId.getText();
+                     String _fName = fname_faculty.getText();
+                     String _lName = lname_faculty.getText();
+                     int deptId = Integer.parseInt(deptTF_faculty.getText());
+                     String _phn = phone_faculty.getText();
+                     String _email = email_faculty.getText();
+                     String _abstract = abstractTA_faculty.getText();
+                     
+                     db.insertFaculty(Integer.parseInt(_facultyId),_fName,_lName, _abstract,deptId,_phn,_email);
+                     
+                     
+                     // if(studentInserted){
+//                         JOptionPane.showMessageDialog(new JFrame("Operation"),"Insert Successfull");
+//                      }else if(!studentInserted){
+//                         JOptionPane.showMessageDialog(new JFrame("Operation"),"Insert Failed");
+//                      }
+//                      
+                     
+                  }
+               });
+               
                break;
             case "Search Faculty":
                System.out.println("Search Faculty");
                JTextField facultyName_Search = new JTextField();
-               JLabel facultyLbl_Search = new JLabel("Faculty Name:");
+               JLabel facultyLbl_Search = new JLabel("Keyword:");
                
                ui.add(facultyLbl_Search);
                ui.add(facultyName_Search);
@@ -272,24 +307,133 @@ public class PresentationLayer extends JFrame{
                ui.repaint();
                
                
+               runBtn.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                  
+                     
+                     String key = facultyName_Search .getText();
+                     
+                     
+                     ArrayList<Faculty> facultyFound = db.searchFaculty(key);
+                     
+                     String out = "";
+                     for(Faculty item: facultyFound){
+                        out += item.toString();
+                     }
+                     
+
+                     JOptionPane.showMessageDialog(new JFrame("Faculty found"),"Insert Succesfull");
+                    
+                     
+                     
+                  }
+               });
+               
                break;
             case "Update Student":
                System.out.println("Update Student");
+               
+               
+               
+               System.out.println("Insert Student");
+               
+               JTextField studentId_update = new JTextField();
+               JLabel studentIdLbl_update = new JLabel("Student Id:");
+               
+               JTextField fname_update = new JTextField();
+               JLabel fnameLbl_update = new JLabel("First Name:");
+               
+               JTextField lname_update = new JTextField();
+               JLabel lnameLbl_update = new JLabel("Last Name:");
+               
+               JTextField programTF_update = new JTextField();
+               JLabel programLbl_update = new JLabel("Program Id:");
+               
+               JTextField phone_update = new JTextField();
+               JLabel phoneLbl_update = new JLabel("Phone:");
+               
+               JTextField email_update = new JTextField();
+               JLabel emailLbl_update = new JLabel("Email:");
+               
+               JTextField interests_update = new JTextField();
+               JLabel interestsLbl_update = new JLabel("Interest (seperate by ','):");
+               
+            
+               ui.add(studentIdLbl_update);
+               ui.add(studentId_update);
+               ui.add(fnameLbl_update);
+               ui.add(fname_update);
+               ui.add(lnameLbl_update);
+               ui.add(lname_update);
+               ui.add(programLbl_update);
+               ui.add(programTF_update);
+               ui.add(phoneLbl_update);
+               ui.add(phone_update);
+               ui.add(emailLbl_update);
+               ui.add(email_update);
+               ui.add(interestsLbl_update);
+               ui.add(interests_update);
+               
+               
                ui.revalidate();
                ui.repaint();
+               
+               runBtn.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                  
+                     int studentId2 = Integer.parseInt(studentId_update.getText());
+                     String _fName_update = fname_update.getText();
+                     String _lName_update = lname_update.getText();
+                     String program_update = programTF_update.getText();
+                     String _phn_update = phoneLbl_update.getText();
+                     String _email_update = email_update.getText();
+                     String _interests = interests_update.getText();
+                     
+                     boolean studentInserted = db.insertStudent(studentId2,_fName_update,_lName_update, Integer.parseInt(program_update) ,_phn_update,_email_update,_interests);
+                     
+                     
+                     if(studentInserted){
+                        JOptionPane.showMessageDialog(new JFrame("Students Found"),"Insert Successfull");
+                     }else if(!studentInserted){
+                        JOptionPane.showMessageDialog(new JFrame("Students Found"),"Insert Failed");
+                     }
+                     
+                     
+                  }
+               });
                
                break;
             case "Delete Faculty":
                System.out.println("Delete Faculty");
-               JTextField facultyName_Delete = new JTextField();
-               JLabel facultyLbl_Delete = new JLabel("Faculty Name:");
+               
+               JTextField facultyId_Delete = new JTextField();
+               JLabel facultyLbl_Delete = new JLabel("Faculty ID:");
                
                ui.add(facultyLbl_Delete);
-               ui.add(facultyName_Delete);
+               ui.add(facultyId_Delete);
                
                
                ui.revalidate();
                ui.repaint();
+               
+               
+               runBtn.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                  
+                     int _facultyId_delete = Integer.parseInt(facultyId_Delete.getText());
+       
+                     
+                     boolean studentInserted = db.deleteFaculty(_facultyId_delete);
+                                          
+                     if(studentInserted){
+                        JOptionPane.showMessageDialog(new JFrame("Students Found"),"Insert Successfull");
+                     }else if(!studentInserted){
+                        JOptionPane.showMessageDialog(new JFrame("Students Found"),"Insert Failed");
+                     }
+                     
+                     
+                  }
+               });
                
                break;
             
