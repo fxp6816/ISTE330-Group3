@@ -158,10 +158,10 @@ public class DataLayer{
 
 
 
-   public ArrayList<Person> searchStudent(String interest){
+   public ArrayList<Person> searchStudent(int interest){
       
       ArrayList<Person> foundStudents = new ArrayList<Person>();
-      String query = "{CALL searchStudent(?)}";
+      String query = "{CALL search_student(?)}";
             try{
                CallableStatement stmt = conn.prepareCall(query);
                stmt.setString(1, interest);
@@ -195,13 +195,14 @@ public class DataLayer{
    public boolean insertStudent(int studentId, String fName, String lName, int programID, String phone, String email, String interests){
          try{
 
-            String query = "{CALL insertStudent(?,?,?,?,?,?)}";
+            String query = "{CALL add_student(?,?,?,?,?,?)}";
             CallableStatement stmt = conn.prepareCall(query);
-            stmt.setString(1, fName);
-            stmt.setString(2, lName);
-            stmt.setInt(3, programID);
-            stmt.setString(4, email);
-            stmt.setString(5, phone);
+            stmt.setInt(1, studentId);
+            stmt.setString(2, fName);
+            stmt.setString(3, lName);
+            stmt.setInt(4, programID);
+            stmt.setString(5, email);
+            stmt.setString(6, phone);
             
 
             ResultSet rs = stmt.executeQuery();
@@ -230,13 +231,13 @@ public class DataLayer{
          }
    }//END - insertStudent()
 
-   public ArrayList<Person> searchFaculty(String interest){
+   public ArrayList<Faculty> searchFaculty(String keyword){
 
-      ArrayList<Person> foundFaculty = new ArrayList<Person>();
+      ArrayList<Faculty> foundFaculty = new ArrayList<Faculty>();
       try{
-         String query = "{CALL searchFaculty(?)}";
+         String query = "{CALL search_faculty(?)}";
          CallableStatement stmt = conn.prepareCall(query);
-         stmt.setString(1, interest);
+         stmt.setString(1, keyword);
 
          ResultSet rs = stmt.executeQuery();
 
@@ -266,16 +267,17 @@ public class DataLayer{
    }//END - serachFaculty()
 
 
-   public boolean insertFaculty(String fName, String lName, String fAbastract, int deptID, String phone, String email, String interests){
+   public boolean insertFaculty(int ID, String fName, String lName, String fAbastract, int deptID, String phone, String email){
       try{
-         String query = "{CALL searchStudent(?,?,?,?,?,?,?)}";
+         String query = "{CALL add_faculty(?,?,?,?,?,?,?)}";
          CallableStatement stmt = conn.prepareCall(query);
-         stmt.setString(1, fName);
-         stmt.setString(2, lName);
-         stmt.setString(3, fAbastract);
-         stmt.setInt(4, deptID);
-         stmt.setString(5, email);
-         stmt.setString(6, phone);
+         stmt.setInt(1,ID);
+         stmt.setString(2, fName);
+         stmt.setString(3, lName);
+         stmt.setString(4, fAbastract);
+         stmt.setInt(5, deptID);
+         stmt.setString(6, email);
+         stmt.setString(7, phone);
 
          ResultSet rs = stmt.executeQuery();
 
@@ -291,37 +293,94 @@ public class DataLayer{
 
 
    //update faculty interest
-   public void updateFacultyInterest(){
-      //look up for the interest and populate the window
-      
-      //rewrite the interest into the database
+   public void updateFaculty(int ID, String fName, String lName, String fAbastract, int deptID, String phone, String email){
+      try{
+         String query = "{CALL update_faculty(?,?,?,?,?,?,?)}";
+         CallableStatement stmt = conn.prepareCall(query);
+         stmt.setInt(1,ID);
+         stmt.setString(2, fName);
+         stmt.setString(3, lName);
+         stmt.setString(4, fAbastract);
+         stmt.setInt(5, deptID);
+         stmt.setString(6, email);
+         stmt.setString(7, phone);
 
-   }//END - updateInterest()
+         ResultSet rs = stmt.executeQuery();
+
+         //return boolean to check if insert worked
+         return true;
+
+      }catch(SQLException sqle){
+         sqle.printStackTrace();
+         return false;
+      }
+
+   }//END - updateFaculty()
 
 
+ public void updateStudent(int ID, String fName, String lName, int deptID, String phone, String email, String interests){
+      try{
+         String query = "{CALL update_student(?,?,?,?,?,?,?)}";
+         CallableStatement stmt = conn.prepareCall(query);
+         stmt.setInt(1,ID);
+         stmt.setString(2, fName);
+         stmt.setString(3, lName);
+         
+         stmt.setInt(4, deptID);
+         stmt.setString(5, email);
+         stmt.setString(6, phone);
+         stmt.setString(7, interests);
 
+         ResultSet rs = stmt.executeQuery();
+
+         //return boolean to check if insert worked
+         return true;
+
+      }catch(SQLException sqle){
+         sqle.printStackTrace();
+         return false;
+      }
+
+   }//END - updateFaculty()
 
    //delete faculty interest
-   public void deleteFacultyInterest(String facultyID){
-      //get the id that you are interested in
-
-      System.out.println("-----DELETE started-----");
+   public void deleteFaculty(int facultyID){
       try{
-         int rows = 0;
-         stmt = conn.createStatement();
-         String sql = "DELETE FROM facultyInterest WHERE facultyID = " + facultyID + ";";
-         System.out.println("Command to be executed: " + sql);
-         rows = stmt.executeUpdate(sql);
-         System.out.println("-----DELETE finished-----");
-         //display the number of rows affected
+         String query = "{CALL delete_faculty(?)}";
+         CallableStatement stmt = conn.prepareCall(query);
+         stmt.setInt(1, facultyID);
 
-      }//try
-      catch(SQLException sqle){
-         System.out.println("DELETE FAILED!!!!");
-         System.out.println("ERROR MESSAGE IS -> "+sqle);
+
+         ResultSet rs = stmt.executeQuery();
+
+         //return boolean to check if insert worked
+         return true;
+
+      }catch(SQLException sqle){
          sqle.printStackTrace();
-         
+         return false;
       }
+
+   }//END - delteFacultyInterest()
+   
+      //delete faculty interest
+   public void deleteStudent(int studentId){
+      try{
+         String query = "{CALL delete_student(?)}";
+         CallableStatement stmt = conn.prepareCall(query);
+         stmt.setInt(1, studentId);
+
+
+         ResultSet rs = stmt.executeQuery();
+
+         //return boolean to check if insert worked
+         return true;
+
+      }catch(SQLException sqle){
+         sqle.printStackTrace();
+         return false;
+      }
+
    }//END - delteFacultyInterest()
 
 
