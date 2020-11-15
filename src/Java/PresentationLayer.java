@@ -151,6 +151,11 @@ public class PresentationLayer extends JFrame{
                ui.revalidate();
                ui.repaint();
                
+               for( ActionListener al : runBtn.getActionListeners() ) {
+                     runBtn.removeActionListener( al );
+               }
+               
+               
                runBtn.addActionListener(new ActionListener(){
                   public void actionPerformed(ActionEvent e){
                   
@@ -188,6 +193,11 @@ public class PresentationLayer extends JFrame{
                ui.revalidate();
                ui.repaint();
                
+               for( ActionListener al : runBtn.getActionListeners() ) {
+                     runBtn.removeActionListener( al );
+               }
+               
+               
                runBtn.addActionListener(new ActionListener(){
                   public void actionPerformed(ActionEvent e){
                      ArrayList<Student> studentsFound = db.searchStudent(Integer.parseInt(interestId_Search.getText()));
@@ -213,6 +223,10 @@ public class PresentationLayer extends JFrame{
                
                ui.revalidate();
                ui.repaint();
+               
+               for( ActionListener al : runBtn.getActionListeners() ) {
+                     runBtn.removeActionListener( al );
+               }
                
                
                runBtn.addActionListener(new ActionListener(){
@@ -269,6 +283,11 @@ public class PresentationLayer extends JFrame{
                ui.repaint();
                
                
+               for( ActionListener al : runBtn.getActionListeners() ) {
+                     runBtn.removeActionListener( al );
+               }
+               
+               
                runBtn.addActionListener(new ActionListener(){
                   public void actionPerformed(ActionEvent e){
                   
@@ -305,6 +324,11 @@ public class PresentationLayer extends JFrame{
                
                ui.revalidate();
                ui.repaint();
+               
+               
+               for( ActionListener al : runBtn.getActionListeners() ) {
+                     runBtn.removeActionListener( al );
+               }
                
                
                runBtn.addActionListener(new ActionListener(){
@@ -378,6 +402,12 @@ public class PresentationLayer extends JFrame{
                ui.revalidate();
                ui.repaint();
                
+               for( ActionListener al : runBtn.getActionListeners() ) {
+                     runBtn.removeActionListener( al );
+               }
+               
+               
+               
                runBtn.addActionListener(new ActionListener(){
                   public void actionPerformed(ActionEvent e){
                   
@@ -415,6 +445,10 @@ public class PresentationLayer extends JFrame{
                
                ui.revalidate();
                ui.repaint();
+               
+               for( ActionListener al : runBtn.getActionListeners() ) {
+                     runBtn.removeActionListener( al );
+               }
                
                
                runBtn.addActionListener(new ActionListener(){
